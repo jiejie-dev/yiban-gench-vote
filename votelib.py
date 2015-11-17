@@ -49,10 +49,19 @@ class VoteHelper(object):
                 json_data = json.loads(result)
                 if(json_data['code']==200):
                     print('投票成功！用户名：%s' % username)
+                    return 200
                 elif(json_data['code']==206):
                     print('投票失败(重复投票)！用户名：%s' % username)
+                    return 206
+                elif(json_data['code']==211):
+                    print('投票失败(登录问题)!用户名：%s' % username)
+                    return 211
+                elif(json_data['code']==204):
+                    print('投票失败(投票上线)!用户名：%s' % username)
+                    return 204
             except Exception:
                 print('投票失败(返回不为json)！用户名：%s' % username)
                 print(Exception)
             # print(json.dumps(json_data))
             # print('vote result:'+str(json_data['code']))
+        return 0
